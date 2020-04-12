@@ -1,0 +1,24 @@
+service: es-check
+frameworkVersion: '>=1.28.0 <2.0.0'
+provider:
+  name: aws
+  vpc:
+    securityGroupIds:
+      - sg-000000
+    subnetIds:
+      - subnet-00000
+      - subnet-00000
+  runtime: go1.x
+  stage: dev
+  region: eu-west-1
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
+functions:
+  get-status:
+    handler: bin/get-status
+    environment:
+      ES_ENDPOINT: "http://your-elastic-search-url:9200/_cat/health"
+
