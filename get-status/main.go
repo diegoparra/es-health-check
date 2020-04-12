@@ -3,17 +3,18 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
-	"regexp"
-	"net/http"
 	"io/ioutil"
+	"log"
+	"net/http"
 	"os"
+	"regexp"
+
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
 var resp string
 
-func getResponse(site string)  string  {
+func getResponse(site string) string {
 	resp, err := http.Get(site)
 	if err != nil {
 		log.Fatal(err)
@@ -29,15 +30,15 @@ func getResponse(site string)  string  {
 func Handler(ctx context.Context) (string, error) {
 	//resp := "green"
 	if resp = getResponse(os.Getenv("ES_ENDPOINT")); resp == "green" {
-		fmt.Println("ES rock-graylog Cluster Status: ", resp)
-		} else if resp == "yellow" {
-		fmt.Println("WARNING: Es rock-graylog cluster is in yellow state")
-		} else {
-			fmt.Println("CRITICAL: ES rock-graylog cluster is in Red state")
-		}
+		fmt.Println("ES Cluster Status: ", resp)
+	} else if resp == "yellow" {
+		fmt.Println("WARNING: Es cluster is in yellow state")
+	} else {
+		fmt.Println("CRITICAL: ES cluster is in Red state")
+	}
 
 	return fmt.Sprintf(resp), nil
-	}
+}
 
 func main() {
 	lambda.Start(Handler)
