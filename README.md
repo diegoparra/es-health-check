@@ -1,6 +1,6 @@
 # es-health-check
 
-This is a small project to monitor a ElasticSearch cluster health check. Basically it just query the health check url and search by the `green` into the body response.
+This is a small project to monitor a ElasticSearch cluster health check. Basically it just query the health check url and search by the string `green` from the body response.
 
 ## Pre req
 In order to run this project you must have:
